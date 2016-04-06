@@ -1,0 +1,27 @@
+<openerp>
+    <data>
+        <!--  -->
+           <record id="course0" model="openacademy.course"> 
+                <field name="name">Curso 0</field> 
+                <field name="description">Curso 0 descripcion
+             
+             Puede tener mas de una linea
+                </field> 
+           </record>
+            <record id="course1" model="openacademy.course"> 
+                <field name="name">Curso 1</field> 
+                <field name="description">Curso 1 descripcion
+             
+             Puede tener mas de una linea
+                </field> 
+           </record>
+            <record id="course2" model="openacademy.course"> 
+                <field name="name">Curso 2</field> 
+                <field name="description">Curso 2 descripcion
+             
+             Puede tener dos lineas
+                </field> 
+           </record>
+
+    </data>
+</openerp>
