@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <openerp>
     <data>
-        <!-- Formulario y pestañas -->
         <record model="ir.ui.view" id="course_form_view">
             <field name="name">course.form</field>
             <field name="model">openacademy.course</field>
             <field name="arch" type="xml">
-                <form string="Formulario de Cursos">
+                <form string="Course Form">
                     <sheet>
                         <group>
                             <field name="name"/>
@@ -18,13 +17,13 @@
                             </page>
                             <page string="Sesiones">
                                 <field name="session_ids">
-                                    <tree string="Sesiones Registradas">
+                                    <tree string="Registered sessions">
                                         <field name="name"/>
                                         <field name="instructor_id"/>
                                     </tree>
                                 </field>
                             </page>
-                            <page string="Acerca de">
+                            <page string="Observaciones">
                                 About
                             </page>
                         </notebook>
@@ -32,7 +31,8 @@
                 </form>
             </field>
         </record>
-        <!-- Sobreescribe automaticamente la lista generada para cursos -->
+        
+        <!-- override the automatically generated list view for courses -->
         <record model="ir.ui.view" id="course_tree_view">
             <field name="name">course.tree</field>
             <field name="model">openacademy.course</field>
@@ -43,7 +43,7 @@
                 </tree>
             </field>
         </record>
-        <!--Campo de busqueda-->
+        
         <record model="ir.ui.view" id="course_search_view">
             <field name="name">course.search</field>
             <field name="model">openacademy.course</field>
@@ -54,17 +54,39 @@
                 </search>
             </field>
         </record>
-       
+        
+        <!-- window action -->
+        <!--
+            The following tag is an action definition for a "window action",
+            that is an action opening a view or a set of views
+        -->
+        <record model="ir.actions.act_window" id="course_list_action">
+            <field name="name">Cursos</field>
+            <field name="res_model">openacademy.course</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">Crea el primer curso
+                </p>
+            </field>
+        </record>
+
+        <!-- top level menu: no parent -->
         <menuitem id="main_openacademy_menu" name="Open Academy"/>
-       
+        <!-- A first level in the left side menu is needed
+        before using action= attribute -->
         <menuitem id="openacademy_menu" name="Open Academy"
                   parent="main_openacademy_menu"/>
-       
+        <!-- the following menuitem should appear *after*
+        its parent openacademy_menu and *after* its
+        action course_list_action -->
         <menuitem id="courses_menu" name="Courses" parent="openacademy_menu"
                   action="course_list_action"/>
+        <!-- Full id location:
+        action="openacademy.course_list_action"
+        It is not required when it is the same module -->
         
-        
-        <!-- vista formulario -->
+        <!-- session form view -->
         <record model="ir.ui.view" id="session_form_view">
             <field name="name">session.form</field>
             <field name="model">openacademy.session</field>
@@ -76,6 +98,7 @@
                                 <field name="course_id"/>
                                 <field name="name"/>
                                 <field name="instructor_id"/>
+                                <field name="aula_id"/>
                             </group>
                             <group string="Schedule">
                                 <field name="start_date"/>
@@ -87,6 +110,7 @@
                 </form>
             </field>
         </record>
+        
         <!-- session tree/list view -->
         <record model="ir.ui.view" id="session_tree_view">
             <field name="name">session.tree</field>
@@ -109,3 +133,46 @@
         <menuitem id="session_menu" name="Sessions"
                   parent="openacademy_menu"
                   action="session_list_action"/>
+    
+        <!-- Creamos el record del modelo Aulas-->    
+        <record model="ir.ui.view" id="aulas_form_view">
+            <field name="name">aulas.form</field>
+            <field name="model">openacademy.aulas</field>
+            <field name="arch" type="xml">
+                <form string="Aulas Form">
+                    <sheet>
+                        <group string="Aulas">
+                            <field name="name"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+        
+        <!-- Tree View Aulas -->
+        <record model="ir.ui.view" id="aulas_tree_view">
+            <field name="name">aulas.tree</field>
+            <field name="model">openacademy.aulas</field>
+            <field name="arch" type="xml">
+                <tree string="Aulas Tree">
+                    <field name="name"/>
+                    <field name="ses_id"/>
+                </tree>
+            </field>
+        </record>
+    
+        <!-- -->
+        <record model="ir.actions.act_window" id="aulas_list_action">
+            <field name="name">aulas</field>
+            <field name="res_model">openacademy.aulas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+        
+        <!-- Botón dentro de Openacademy desde 
+        el que llamamos al modelo aulas -->
+        <menuitem id="aulas_menu" name="Aulas"
+                  parent="openacademy_menu"
+                  action="aulas_list_action"/>      
+    </data>
+</openerp>

@@ -11,7 +11,7 @@
     """,
 
     'author': "David Pazo",
-    'website': "merda",
+    'website': "Castelao",
 
     'category': 'Uncategorized',
     'version': '0.1',
